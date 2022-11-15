@@ -3,6 +3,8 @@ from skmultiflow.data.file_stream import FileStream
 # 1. read and load the dataset into memory
 stream = FileStream("bodmas.csv")
 print(stream.next_sample())
+all_samples = stream.get_all_samples() # Converts FileStream to DataFrame.
+print(all_samples)
 # 2. convert the dataset into a format suitable for learning
 
 
