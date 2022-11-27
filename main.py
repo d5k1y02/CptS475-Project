@@ -24,7 +24,7 @@ with open('bodmas_metadata.csv', newline='') as csvfile:
             month_count += 1
         else:
             if(current_month != ''):
-                dict1[current_month] = month_count
+                month_counts[current_month] = month_count
             current_month = str(datetime_object.year) + ' ' + str(datetime_object.month)
             month_count = 1
 
