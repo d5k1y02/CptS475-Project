@@ -1,5 +1,4 @@
-from numpy import load
-from skmultiflow.data.file_stream import FileStream
+
 from skmultiflow.data.data_stream import DataStream
 from datetime import datetime
 from numpy import loadtxt
@@ -33,24 +32,4 @@ with open('bodmas_metadata.csv', newline='') as csvfile:
 
 print(month_counts)
 
-with open('bodmas_metadata.csv', newline='') as csvfile:
-    reader = csv.DictReader(csvfile)
-    starting_index = 0
-    for value in month_counts:
-        print(type(month_counts[value]))
-#        print(random.randint(value, size = math.ceil(month_counts[value] * 0.75)))
-#        print(random.randint(month_counts[value], size = math.ceil(month_counts[value] * 0.75)))
-        print(random.sample(range(0, month_counts[value]), math.ceil(month_counts[value] * 0.75)))
 
-# 2. convert the dataset into a format suitable for learning
-
-
-# 3. select month of data and split the data into 
-# the train set and testing set
-
-
-# 4. create the classifier
-
-# 5. train the classifier
-
-# 6. display results
