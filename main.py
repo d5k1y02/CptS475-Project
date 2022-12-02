@@ -40,6 +40,7 @@ correct_cnt = 0
 #samples = month_counts #dictionary of the number of samples in each month
 
 test_months = {"2007 1", "2007 4"}
+classifier = pickle.load(open("classifier.sav", 'rb'))
 for value in month_counts:
     print('Samples from month ' + value + ': ' + str(month_counts[value]))
     if value in test_months:
@@ -55,14 +56,15 @@ for value in month_counts:
 
         print('{} samples analyzed.'.format(n_samples)) #Display results
         print('Accuracy: {}'.format(correct_cnt / n_samples))
-
-        pickle.dump(classifier, open("classifier.sav", 'wb'))
-        classifier = pickle.load(open("classifier.sav", 'rb'))
     
     else:
         print('Bypassing month ' + value)
+        n_samples = 0
         while n_samples < month_counts[value] and stream.has_more_samples():
             stream.next_sample()
+            n_samples += 1
+
+    pickle.dump(classifier, open("classifier.sav", 'wb'))
 
 # 3. display results
 print('{} samples analyzed.'.format(n_samples))
