@@ -6,8 +6,19 @@ import random
 import math
 import csv
 import pickle
+import sys
 # 1. read and load the dataset into memory
 stream = FileStream("bodmas.csv")
+
+test_months = []
+i = 1
+while i < len(sys.argv) - 1:
+    test_months.append(sys.argv[i] + ' ' + sys.argv[i + 1])
+    i += 2
+
+print ("Number of arguments:" + str(len(sys.argv)) + "arguments.")
+print ("Argument List:" + str(sys.argv))
+print(test_months)
 
 month_counts = {}
 month_count = 0 
@@ -39,7 +50,6 @@ n_samples = 0
 correct_cnt = 0
 #samples = month_counts #dictionary of the number of samples in each month
 
-test_months = {"2007 1", "2007 4"}
 classifier = pickle.load(open("classifier.sav", 'rb'))
 for value in month_counts:
     print('Samples from month ' + value + ': ' + str(month_counts[value]))
