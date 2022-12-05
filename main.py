@@ -7,7 +7,8 @@ import math
 import csv
 import pickle
 import sys
-# 1. read and load the dataset into memory
+
+# Read and load the dataset into memory
 stream = FileStream("bodmas.csv")
 
 test_months = []
@@ -16,12 +17,7 @@ while i < len(sys.argv) - 1:
     test_months.append(sys.argv[i] + ' ' + sys.argv[i + 1])
     i += 2
 
-print ("Number of arguments:" + str(len(sys.argv)) + "arguments.")
-print ("Argument List:" + str(sys.argv))
-print(test_months)
-
 month_counts = {}
-month_count = 0 
 with open('bodmas_metadata.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     current_month = ''
@@ -43,16 +39,11 @@ with open('bodmas_metadata.csv', newline='') as csvfile:
 print("month counts: ")
 print(month_counts)
 
-# 2. create and train the classifier
-classifier = AdaptiveRandomForestClassifier(n_estimators = 1, max_features = 10)
-
-n_samples = 0
-correct_cnt = 0
-#samples = month_counts #dictionary of the number of samples in each month
+# Create and train the classifier
+classifier = AdaptiveRandomForestClassifier(n_estimators = 100, max_features = 10)
 
 classifier = pickle.load(open("classifier.sav", 'rb'))
 for value in month_counts:
-    print('Samples from month ' + value + ': ' + str(month_counts[value]))
     if value in test_months:
         n_samples = 0
         correct_cnt = 0
@@ -64,18 +55,14 @@ for value in month_counts:
             classifier.partial_fit(X, y)
             n_samples += 1
 
-        print('{} samples analyzed.'.format(n_samples)) #Display results
+        # Print results
+        print('{} samples analyzed from month '.format(n_samples) + value + '.') #Display results
         print('Accuracy: {}'.format(correct_cnt / n_samples))
     
     else:
-        print('Bypassing month ' + value)
         n_samples = 0
         while n_samples < month_counts[value] and stream.has_more_samples():
             stream.next_sample()
             n_samples += 1
 
     pickle.dump(classifier, open("classifier.sav", 'wb'))
-
-# 3. display results
-print('{} samples analyzed.'.format(n_samples))
-print('Accuracy: {}'.format(correct_cnt / n_samples))
