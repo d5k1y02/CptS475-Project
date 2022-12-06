@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 from skmultiflow.data.file_stream import FileStream
 from skmultiflow.meta import AdaptiveRandomForestClassifier
 from datetime import datetime
@@ -68,4 +66,3 @@ for value in month_counts:
             n_samples += 1
 
     pickle.dump(classifier, open("classifier.sav", 'wb'))
->>>>>>> 2721181473080527553e80de1f449e14cf70ddf5
